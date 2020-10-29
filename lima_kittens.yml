@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  This is a static website application deployed on AWS Simple Storage Service (S3), 
+  served through Cloudfront and Route 53 using AWS Cloudformation Service.
+
+
+Parameters:
+  DomainName:
+    Description: Enter the name of your domain
+    Type: AWS::Route53::HostedZone::Id
+
+  FullDomainName:
+    Description: Enter the name of your full domain for kittens web page
+    Type: AWS::Route53::HostedZone::Id
+    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+  
+Resources:
+  LimaKittensBucket06:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: limakittensbucket06
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: False
+      WebsiteConfiguration:
+        IndexDocument: index.html
+  
+  LimaKittenBucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: !Ref LimaKittensBucket06 #required
+      PolicyDocument: {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+              "Sid": "PublicReadGetObject",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:GetObject",
+              "Resource": "arn:aws:s3:::limakittensbucket06/*"
+          }
+          ]
+        } #required
+
+
+  LogicalID:
+    Type: "AWS::CloudFront::CachePolicy"
+    Properties:
+      CachePolicyConfig: #required
+        CachePolicyConfig
+  
+  LogicalID:
+    Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
+    Properties:
+      CloudFrontOriginAccessIdentityConfig: #required
+        CloudFrontOriginAccessIdentityConfig
+  
+  LogicalID:
+    Type: "AWS::CloudFront::Distribution"
+    Properties:
+      DistributionConfig: #required
+        Aliases: 
+          - String
+        CacheBehaviors: 
+          - GET 
+          - HEAD
+
+        DefaultCacheBehavior: 
+            CachedMethods: 
+              - GET
+              - HEAD
+       
+        
+        
+        HttpVersion: http2
+        IPV6Enabled: true
+
+
+  
+
+
+Outputs:

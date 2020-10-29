@@ -1,0 +1,126 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  
+  This is a static website application deployed on AWS Simple Storage Service (S3), 
+  served through Cloudfront and Route 53 using AWS Cloudformation Service.
+
+Parameters:
+  # DNS Name
+  # Full Domain Name
+
+Resources:
+  # security group for S3 
+  # S3 Static web site
+  # Cloud Front
+  # Route 53
+
+  
+Outputs:
+  # Full Domain Name
+  # Endpoint Cloudfront
+  # Name of S3 Bucket for Website
+
+LogicalID:
+  Type: "AWS::ApiGateway::DomainName"
+  Properties:
+    DomainName: String
+    EndpointConfiguration:
+      EndpointConfiguration
+    MutualTlsAuthentication:
+      MutualTlsAuthentication
+    CertificateArn: String
+    RegionalCertificateArn: String
+    SecurityPolicy: String
+    Tags:
+      - Tag
+
+LogicalID:
+  Type: "AWS::ApiGatewayV2::DomainName"
+  Properties:
+    MutualTlsAuthentication:
+      MutualTlsAuthentication
+    DomainName: String #required
+    DomainNameConfigurations:
+      - DomainNameConfiguration
+    Tags: Json
+
+LogicalID:
+  Type: "AWS::Amplify::Domain"
+  Properties:
+    SubDomainSettings: #required
+      - SubDomainSetting
+    AppId: String #required
+    AutoSubDomainIAMRole: String
+    DomainName: String #required
+    EnableAutoSubDomain: Boolean
+    AutoSubDomainCreationPatterns:
+      - String
+
+
+LogicalID:
+  Type: "AWS::S3::Bucket"
+  Properties:
+    AccelerateConfiguration:
+      AccelerateConfiguration
+    AccessControl: String
+    AnalyticsConfigurations:
+      - AnalyticsConfiguration
+    BucketEncryption:
+      BucketEncryption
+    BucketName: String
+    CorsConfiguration:
+      CorsConfiguration
+    InventoryConfigurations:
+      - InventoryConfiguration
+    LifecycleConfiguration:
+      LifecycleConfiguration
+    LoggingConfiguration:
+      LoggingConfiguration
+    MetricsConfigurations:
+      - MetricsConfiguration
+    NotificationConfiguration:
+      NotificationConfiguration
+    ObjectLockConfiguration:
+      ObjectLockConfiguration
+    ObjectLockEnabled: Boolean
+    PublicAccessBlockConfiguration:
+      PublicAccessBlockConfiguration
+    ReplicationConfiguration:
+      ReplicationConfiguration
+    Tags:
+      - Tag
+    VersioningConfiguration:
+      VersioningConfiguration
+    WebsiteConfiguration:
+      WebsiteConfiguration
+
+
+  LogicalID:
+    Type: "AWS::S3::BucketPolicy"
+    Properties:
+      Bucket: String #required
+      PolicyDocument: Json #required
+  
+
+
+
+
+
+
+
+
+
+
+
+  DomainName:
+  KittensDomainName:
+Resources:
+  KittensBucket:
+  KittensBucketPolicy:
+  KittensCertificate:
+  KittensDNSName:#RECORD SET
+  KittensCloudfront:
+Outputs:
+  BucketName:
+  CloudfrontEndpoint:
+  FullDomain:

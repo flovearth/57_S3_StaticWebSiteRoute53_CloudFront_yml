@@ -1,6 +1,8 @@
 AWSTemplateFormatVersion: 2010-09-09
+
 Description: |
     Cloudformation Template for kittens carousel static website deploy on s3. This static website is distributed by  cloudfront. Cloudfront DNS is published by Route 53 using full domain name.
+
 Parameters:
     DomainName:
       Description: DNS Name of existing Amazon Route 53 hosted zone ex. clarusway.us
@@ -9,6 +11,7 @@ Parameters:
       Description: Full domain name for the App. ex. kittens.clarusway.us
       Type: String
       AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+
 Resources:
   KittensBucket:
     Type: AWS::S3::Bucket
@@ -17,6 +20,7 @@ Resources:
       BucketName: !Ref KittensDomainName
       WebsiteConfiguration: 
          IndexDocument: index.html
+  
   KittensBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -29,6 +33,7 @@ Resources:
             Action: s3:GetObject
             Resource: !Join ['', ['arn:aws:s3:::', !Ref 'KittensBucket', /*]]
             # !Sub "${KittensBucket.Arn}/*"
+  
   KittensCertificate:
     Type: "AWS::CertificateManager::Certificate"
     Properties:
@@ -38,6 +43,7 @@ Resources:
         - DomainName: !Ref KittensDomainName
           HostedZoneId: !Ref DomainName
       ValidationMethod: DNS
+  
   KittensDNSName:
     Type: AWS::Route53::RecordSetGroup
     Properties:
@@ -46,8 +52,18 @@ Resources:
         - Name: !Ref KittensDomainName
           Type: A
           AliasTarget:
-            HostedZoneId: Z2FDTNDATAQYW2
+            HostedZoneId: Z2FDTNDATAQYW2 # standart yazılır.
             DNSName: 'put the cloudfront DNS name'
+
+    KittensCertificate:
+    Type: "AWS::CertificateManager::Certificate"
+    Properties:
+      CertificateTransparencyLoggingPreference: ENABLED
+      DomainName: !Ref KittensDomainName #required
+      DomainValidationOptions:
+        - DomainName: !Ref KittensDomainName
+          HostedZoneId: !Ref DomainName
+      ValidationMethod: DNS
 
   LogicalID:
     Type: "AWS::CloudFront::Distribution"
